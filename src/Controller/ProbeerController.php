@@ -34,7 +34,7 @@ class ProbeerController extends AbstractController
     public function index()
     {
         $post = new Post();
-        $post->setTitle($this->faker->title());
+        $post->setTitle($this->faker->text(50));
         $post->setBody($this->faker->realText());
 
         $this->entityManager->beginTransaction();
@@ -51,7 +51,7 @@ class ProbeerController extends AbstractController
         $this->entityManager->commit();
 
         $video = new Video();
-        $video->setTitle($this->faker->title());
+        $video->setTitle($this->faker->text(50));
         $video->setVideoUrl($this->faker->url());
 
         $this->entityManager->beginTransaction();
