@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Video;
 use Faker\Factory;
 use Faker\Generator;
 use App\Entity\Comment;
@@ -45,6 +46,22 @@ class ProbeerController extends AbstractController
             $this->entityManager->persist($comment);
         }
 
+
+        $this->entityManager->flush();
+        $this->entityManager->commit();
+
+        $video = new Video();
+        $video->setTitle($this->faker->title());
+        $video->setVideoUrl($this->faker->url());
+
+        $this->entityManager->beginTransaction();
+        $this->entityManager->persist($video);
+
+        for($i = 0 ; $i < 10 ; $i++ ) {
+            $comment = new Comment($video);
+            $comment->setBody($this->faker->realText());
+            $this->entityManager->persist($comment);
+        }
 
         $this->entityManager->flush();
         $this->entityManager->commit();
